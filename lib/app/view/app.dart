@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:global_citizen_game/counter/counter.dart';
 import 'package:global_citizen_game/l10n/l10n.dart';
 import 'package:global_citizen_game/wallet/view/wallet_page.dart';
 

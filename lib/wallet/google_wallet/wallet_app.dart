@@ -49,7 +49,7 @@ class _WalletAppState extends State<WalletApp> {
                             print('pressed buttom');
                             widget.flutterGoogleWalletPlugin.savePasses(
                                 jsonPass: exampleJsonPass,
-                                addToGoogleWalletRequestCode: 2);
+                                addToGoogleWalletRequestCode: 2,);
                           },
                         ),
                       ),
