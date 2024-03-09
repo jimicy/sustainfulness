@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_google_wallet: ^0.1.4
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.0
@@ -25,3 +26,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - packages/flutter_google_wallet/assets/svg/button/frFR_add_to_google_wallet_wallet-button.svg
+    - packages/flutter_google_wallet/assets/svg/button/enUS_add_to_google_wallet_wallet-button.svg
