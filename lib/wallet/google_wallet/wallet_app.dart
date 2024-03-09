@@ -4,9 +4,8 @@ import 'package:flutter_google_wallet/generated/l10n.dart';
 import 'package:flutter_google_wallet/widget/add_to_google_wallet_button.dart';
 
 class WalletApp extends StatefulWidget {
-  
   WalletApp({super.key});
-  
+
   final flutterGoogleWalletPlugin = FlutterGoogleWalletPlugin();
 
   @override
@@ -15,7 +14,7 @@ class WalletApp extends StatefulWidget {
 
 class _WalletAppState extends State<WalletApp> {
   late Future<bool> _isWalletAvailable;
-  
+
   @override
   void initState() {
     super.initState();
@@ -67,8 +66,6 @@ class _WalletAppState extends State<WalletApp> {
     );
   }
 }
-
-
 
 //https://developers.google.com/wallet/reference/rest/v1/Jwt
 const exampleJsonPass = '''
