@@ -2,14 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_google_wallet/flutter_google_wallet_plugin.dart';
-import 'package:flutter_google_wallet/generated/l10n.dart';
 import 'package:flutter_google_wallet/widget/add_to_google_wallet_button.dart';
 import 'package:uuid/uuid.dart';
 
 class WalletApp extends StatefulWidget {
   WalletApp({
     required this.cardImgUri,
-    required this.language,
     required this.title,
     required this.message,
     super.key,
@@ -17,7 +15,6 @@ class WalletApp extends StatefulWidget {
 
   final flutterGoogleWalletPlugin = FlutterGoogleWalletPlugin();
   final String cardImgUri;
-  final String language;
   final String message;
   final String title;
 
@@ -51,10 +48,10 @@ class _WalletAppButton extends State<WalletApp> {
                                 jsonPass: generateJsonPass(
                                   '3388000000022316652', 
                                   widget.cardImgUri, 
-                                  widget.language, 
                                   widget.title, 
                                   widget.message),
-                                addToGoogleWalletRequestCode: 0,);
+                                addToGoogleWalletRequestCode: 
+                                DateTime.now().millisecondsSinceEpoch,);
                           },
                       );
                   } else {
@@ -89,12 +86,10 @@ class _WalletPayLoad {
 
 class _GenericPass {
 
-  _GenericPass(this.issuer, this.mainImageUri, 
-  this.language, this.header, this.body,);
+  _GenericPass(this.issuer, this.mainImageUri, this.header, this.body,);
 
   final String issuer;
   final String mainImageUri;
-  final String language;
   final String header;
   final String body;
   final String uuid = const Uuid().v4();
@@ -111,19 +106,22 @@ class _GenericPass {
       },
       'cardTitle': {
         'defaultValue': {
-          'language': language,
+          'language': WidgetsBinding.instance.platformDispatcher
+            .locale.toString(),
           'value': header,
         },
       },
       'subheader': {
         'defaultValue': {
-          'language': language,
+          'language': WidgetsBinding.instance.platformDispatcher
+            .locale.toString(),
           'value': 'Message',
         },
       },
       'header': {
         'defaultValue': {
-          'language': language,
+          'language': WidgetsBinding.instance.platformDispatcher.locale
+            .toString(),
           'value': body,
         },
       },
@@ -142,9 +140,9 @@ class _GenericPass {
     };
 }
 
-String generateJsonPass(String issuer, String mainImageUri, String language, 
-  String header, String body,) {
-  final pass = _GenericPass(issuer, mainImageUri, language, header, body,);
+String generateJsonPass(String issuer, String mainImageUri, String header, 
+  String body,) {
+  final pass = _GenericPass(issuer, mainImageUri, header, body,);
   final payload = _WalletPayLoad(['localhost'], 
   'global-citizen-pass@global-citizen-game.iam.gserviceaccount.com', pass.toJson(),);
   return jsonEncode(payload);

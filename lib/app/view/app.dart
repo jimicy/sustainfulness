@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_wallet/generated/l10n.dart';
 import 'package:global_citizen_game/counter/counter.dart';
 import 'package:global_citizen_game/l10n/l10n.dart';
-import 'package:flutter_google_wallet/generated/l10n.dart';
-import 'package:global_citizen_game/wallet/view/wallet_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -19,6 +18,7 @@ class App extends StatelessWidget {
       localizationsDelegates: const [...AppLocalizations.localizationsDelegates, I18nGoogleWallet.delegate],
       supportedLocales: AppLocalizations.supportedLocales,
       home: const CounterPage(),
+      //const WalletPage(cardImgUri: 'https://i.imgur.com/9dMfarG.jpg', title: 'Mindfulness Card', message: 'Praise the sun!',)
     );
   }
 }
