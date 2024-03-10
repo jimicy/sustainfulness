@@ -6,10 +6,13 @@ import 'package:global_citizen_game/counter/counter.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
+import '../../helpers/hydrated_bloc.dart';
 
 class MockCounterCubit extends MockCubit<int> implements CounterCubit {}
 
 void main() {
+  initHydratedStorage();
+
   group('CounterPage', () {
     testWidgets('renders CounterView', (tester) async {
       await tester.pumpApp(const CounterPage());
