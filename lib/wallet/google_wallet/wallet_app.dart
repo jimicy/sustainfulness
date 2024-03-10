@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_google_wallet/flutter_google_wallet_plugin.dart';
 import 'package:flutter_google_wallet/generated/l10n.dart';
 import 'package:flutter_google_wallet/widget/add_to_google_wallet_button.dart';
+import 'package:uuid/uuid.dart';
 
 class WalletApp extends StatefulWidget {
   
@@ -47,10 +50,14 @@ class _WalletAppState extends State<WalletApp> {
                         child: AddToGoogleWalletButton(
                           locale: const Locale('en', 'EN'),
                           onPress: () {
-                            print('pressed buttom');
                             widget.flutterGoogleWalletPlugin.savePasses(
-                                jsonPass: exampleJsonPass,
-                                addToGoogleWalletRequestCode: 2);
+                                jsonPass: generateJsonPass(
+                                  '3388000000022316652', 
+                                  'https://i.imgur.com/9dMfarG.jpg', 
+                                  'en-US', 
+                                  'header', 
+                                  'place holder desc'),
+                                addToGoogleWalletRequestCode: 0,);
                           },
                         ),
                       ),
@@ -68,84 +75,91 @@ class _WalletAppState extends State<WalletApp> {
   }
 }
 
-
-
 //https://developers.google.com/wallet/reference/rest/v1/Jwt
-const exampleJsonPass = '''
-{
-  "aud": "google",
-  "origins": [
-    "https://localhost:8080"
-  ],
-  "iss": "global-citizen-pass@global-citizen-game.iam.gserviceaccount.com",
-  "iat": 1389816895,
-  "typ": "savetowallet",
-  "payload": {
-    "loyaltyObjects": [
-      {
-        "barcode": {
-          "alternateText": "12345",
-          "type": "qrCode",
-          "value": "28343E3"
-        },
-        "linksModuleData": {
-          "uris": [
-            {
-              "kind": "walletobjects#uri",
-              "uri": "https://www.baconrista.com/myaccount?id=1234567890",
-              "description": "My Baconrista Account"
-            }
-          ]
-        },
-        "infoModuleData": {
-          "labelValueRows": [
-            {
-              "columns": [
-                {
-                  "value": "Jane Doe",
-                  "label": "Member Name"
-                },
-                {
-                  "value": "1234567890",
-                  "label": "Membership #"
-                }
-              ]
-            },
-            {
-              "columns": [
-                {
-                  "value": "2 coffees",
-                  "label": "Next Reward in"
-                },
-                {
-                  "value": "01/15/2013",
-                  "label": "Member Since"
-                }
-              ]
-            }
-          ],
-          "showLastUpdateTime": "true"
-        },
-        "id": "3388000000022316652.test1",
-        "loyaltyPoints": {
-          "balance": {
-            "string": "500"
-          },
-          "label": "Points"
-        },
-        "accountId": "1234567890",
-        "classId": "3388000000022316652.test",
-        "accountName": "Jane Doe",
-        "state": "active",
-        "version": 1,
-        "textModulesData": [
-          {
-            "body": "You are 5 coffees away from receiving a free bacon fat latte. ",
-            "header": "Jane's Baconrista Rewards"
-          }
-        ]
-      }
-    ]
-  }
+class _WalletPayLoad {
+
+  _WalletPayLoad(this.origins, this. googleCloudAccount, this.passes);
+
+  final List<String> origins;
+  final String googleCloudAccount;
+  final List<Object> passes;
+  
+  Map<String, dynamic> toJson() => {
+    'aud': 'google',
+    'origins': origins,
+    'iss': googleCloudAccount,
+    'iat': DateTime.now().millisecondsSinceEpoch,
+    'typ': 'savetowallet',
+    'payload': {
+      'loyaltyObjects': passes,
+    },
+  };
 }
-''';
+
+class _Pass {
+
+  _Pass(this.issuer, this.mainImageUri, 
+  this.language, this.header, this.body,);
+
+  final String issuer;
+  final String mainImageUri;
+  final String language;
+  final String header;
+  final String body;
+  final String uuid = const Uuid().v4();
+
+    Map<String, dynamic> toJson() => {
+      'id': '$issuer.$uuid',
+      'classId': '$issuer.test',
+      'localizedProgramName': {
+      'defaultValue': {
+          'language': language,
+          'value': header,
+        },
+      },
+      'loyaltyPoints': {
+        'balance': {
+          'string': body,
+        },
+        'localizedLabel': {
+          'defaultValue': {
+            'language': language,
+            'value': 'Message',
+          },
+        },
+      },
+      'textModulesData': [
+        {
+          'id': 'content',
+          'header': 'Desc',
+          'body': body,
+        },
+      ],
+      'imageModulesData': [
+        {
+          'mainImage': {
+            'sourceUri': {
+              'uri': mainImageUri,
+            },
+          },
+          'id': 'card-art',
+        },
+      ],
+      'heroImage': {
+        'sourceUri': {
+          'uri': mainImageUri,
+        },
+      },
+      'hexBackgroundColor': '#4285f4',
+      'state': 'active',
+    };
+}
+
+String generateJsonPass(String issuer, String mainImageUri, String language, 
+  String header, String body,) {
+  final pass = _Pass(issuer, mainImageUri, language, header, body,);
+  final payload = _WalletPayLoad(['localhost'], 
+  'global-citizen-pass@global-citizen-game.iam.gserviceaccount.com', [pass],);
+
+  return jsonEncode(payload);
+}
