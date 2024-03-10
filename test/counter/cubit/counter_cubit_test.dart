@@ -6,8 +6,8 @@ import 'package:global_citizen_game/counter/counter.dart';
 import '../../helpers/hydrated_bloc.dart';
 
 void main() {
-  // initHydratedStorage();
-  
+  initHydratedStorage();
+
   group('CounterCubit', () {
     test('initial state is 0', () {
       expect(CounterCubit().state, equals(0));
