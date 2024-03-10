@@ -39,24 +39,12 @@ class _WalletAppButton extends State<WalletApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [I18nGoogleWallet.delegate],
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              FutureBuilder<bool>(
+    return Material(
+      child: FutureBuilder<bool>(
                 future: _isWalletAvailable,
                 builder: (BuildContext context, AsyncSnapshot<bool> available) {
                   if (available.data == true) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: AddToGoogleWalletButton(
+                    return AddToGoogleWalletButton(
                           locale: const Locale('en', 'EN'),
                           onPress: () {
                             widget.flutterGoogleWalletPlugin.savePasses(
@@ -68,18 +56,12 @@ class _WalletAppButton extends State<WalletApp> {
                                   widget.message),
                                 addToGoogleWalletRequestCode: 0,);
                           },
-                        ),
-                      ),
-                    );
+                      );
                   } else {
                     return const SizedBox.shrink();
                   }
                 },
               ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
