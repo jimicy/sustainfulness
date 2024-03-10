@@ -14,7 +14,9 @@ dependencies:
   flutter_google_wallet: ^0.1.4
   flutter_localizations:
     sdk: flutter
+  hydrated_bloc: ^9.1.4
   intl: ^0.18.0
+  path_provider: ^2.1.2
 
 dev_dependencies:
   bloc_test: ^9.1.2
