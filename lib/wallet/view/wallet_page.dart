@@ -6,7 +6,12 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: WalletApp(),
+      child: WalletApp(
+            cardImgUri: 'https://i.imgur.com/9dMfarG.jpg',
+            language: 'en-US',
+            title: 'mindfulness Card',
+            message: 'place holder desc',
+          ),
     );
   }
 }

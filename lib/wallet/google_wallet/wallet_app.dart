@@ -7,15 +7,25 @@ import 'package:flutter_google_wallet/widget/add_to_google_wallet_button.dart';
 import 'package:uuid/uuid.dart';
 
 class WalletApp extends StatefulWidget {
-  WalletApp({super.key});
+  WalletApp({
+    required this.cardImgUri,
+    required this.language,
+    required this.title,
+    required this.message,
+    super.key,
+  });
 
   final flutterGoogleWalletPlugin = FlutterGoogleWalletPlugin();
+  final String cardImgUri;
+  final String language;
+  final String message;
+  final String title;
 
   @override
-  State<WalletApp> createState() => _WalletAppState();
+  State<WalletApp> createState() => _WalletAppButton();
 }
 
-class _WalletAppState extends State<WalletApp> {
+class _WalletAppButton extends State<WalletApp> {
   late Future<bool> _isWalletAvailable;
 
   @override
@@ -52,10 +62,10 @@ class _WalletAppState extends State<WalletApp> {
                             widget.flutterGoogleWalletPlugin.savePasses(
                                 jsonPass: generateJsonPass(
                                   '3388000000022316652', 
-                                  'https://i.imgur.com/9dMfarG.jpg', 
-                                  'en-US', 
-                                  'header', 
-                                  'place holder desc'),
+                                  widget.cardImgUri, 
+                                  widget.language, 
+                                  widget.title, 
+                                  widget.message),
                                 addToGoogleWalletRequestCode: 0,);
                           },
                         ),
@@ -77,11 +87,11 @@ class _WalletAppState extends State<WalletApp> {
 //https://developers.google.com/wallet/reference/rest/v1/Jwt
 class _WalletPayLoad {
 
-  _WalletPayLoad(this.origins, this. googleCloudAccount, this.passes);
+  _WalletPayLoad(this.origins, this. googleCloudAccount, this.pass);
 
   final List<String> origins;
   final String googleCloudAccount;
-  final List<Object> passes;
+  final Map<String, dynamic> pass;
   
   Map<String, dynamic> toJson() => {
     'aud': 'google',
@@ -90,14 +100,14 @@ class _WalletPayLoad {
     'iat': DateTime.now().millisecondsSinceEpoch,
     'typ': 'savetowallet',
     'payload': {
-      'loyaltyObjects': passes,
+      'genericObjects': [pass],
     },
   };
 }
 
-class _Pass {
+class _GenericPass {
 
-  _Pass(this.issuer, this.mainImageUri, 
+  _GenericPass(this.issuer, this.mainImageUri, 
   this.language, this.header, this.body,);
 
   final String issuer;
@@ -109,56 +119,51 @@ class _Pass {
 
     Map<String, dynamic> toJson() => {
       'id': '$issuer.$uuid',
-      'classId': '$issuer.test',
-      'localizedProgramName': {
-      'defaultValue': {
+      'classId': '$issuer.global_gamer_pass',
+      'genericType': 'GENERIC_TYPE_UNSPECIFIED',
+      'hexBackgroundColor': '#4285f4',
+      'logo': {
+        'sourceUri': {
+          'uri': 'https://storage.googleapis.com/wallet-lab-tools-codelab-artifacts-public/pass_google_logo.jpg',
+        },
+      },
+      'cardTitle': {
+        'defaultValue': {
           'language': language,
           'value': header,
         },
       },
-      'loyaltyPoints': {
-        'balance': {
-          'string': body,
-        },
-        'localizedLabel': {
-          'defaultValue': {
-            'language': language,
-            'value': 'Message',
-          },
+      'subheader': {
+        'defaultValue': {
+          'language': language,
+          'value': 'Message',
         },
       },
-      'textModulesData': [
-        {
-          'id': 'content',
-          'header': 'Desc',
-          'body': body,
+      'header': {
+        'defaultValue': {
+          'language': language,
+          'value': body,
         },
-      ],
-      'imageModulesData': [
-        {
-          'mainImage': {
-            'sourceUri': {
-              'uri': mainImageUri,
-            },
-          },
-          'id': 'card-art',
-        },
-      ],
+      },
       'heroImage': {
         'sourceUri': {
           'uri': mainImageUri,
         },
       },
-      'hexBackgroundColor': '#4285f4',
-      'state': 'active',
+      'textModulesData': [
+        {
+          'header': 'Description',
+          'body': body,
+          'id': 'body',
+        }
+      ]
     };
 }
 
 String generateJsonPass(String issuer, String mainImageUri, String language, 
   String header, String body,) {
-  final pass = _Pass(issuer, mainImageUri, language, header, body,);
+  final pass = _GenericPass(issuer, mainImageUri, language, header, body,);
   final payload = _WalletPayLoad(['localhost'], 
-  'global-citizen-pass@global-citizen-game.iam.gserviceaccount.com', [pass],);
-
+  'global-citizen-pass@global-citizen-game.iam.gserviceaccount.com', pass.toJson(),);
   return jsonEncode(payload);
 }
