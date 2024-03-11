@@ -603,7 +603,7 @@ class Splash1FirstTextAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Splash1FirstText(text: text)
-        .animate(delay: 400.ms)
+        .animate()
         .blur()
         .fadeIn(
           curve: Curves.easeOut,
@@ -677,7 +677,7 @@ class Splash1SecondTextAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Splash1SecondText(text: text)
-        .animate(delay: 1500.ms)
+        .animate(delay: 600.ms)
         .blur()
         .fadeIn(
           curve: Curves.easeOut,
@@ -690,7 +690,7 @@ class Splash1SecondTextAnimation extends StatelessWidget {
             duration: 300.ms,
             builder: (_, __) =>
                 Splash1SecondText(text: text).animate(onComplete: (controller) {
-                  Future.delayed(1000.ms, () {
+                  Future.delayed(500.ms, () {
                     context.read<SplashCubit>().setPageState(pageState);
                   });
                 }).fadeIn(curve: Curves.easeOut, duration: 500.ms));
