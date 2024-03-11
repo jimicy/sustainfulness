@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:global_citizen_game/wallet/google_wallet/wallet_app.dart';
+import 'package:global_citizen_game/share/google_wallet/wallet_app.dart';
+import 'package:global_citizen_game/share/social_media/social_media_app.dart';
 
-class WalletPage extends StatelessWidget {
-  const WalletPage({
+
+class SharePage extends StatelessWidget {
+  const SharePage({
     required this.cardImgUri,
     required this.title,
     required this.message,
@@ -16,7 +18,7 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text('Sharing center'))),
+      appBar: AppBar(title: Center(child: Text('Sharing Center'))),
       body: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(fit:BoxFit.cover, image: NetworkImage(cardImgUri))), 
@@ -30,12 +32,21 @@ class WalletPage extends StatelessWidget {
                       Text(message, style: TextStyle(color: const Color.fromARGB(255, 44, 49, 51), fontSize: 30, fontWeight: FontWeight.bold),)),)])]),
           ),
       bottomNavigationBar: BottomAppBar(color: Colors.transparent, child: 
-      Center(
-        child: WalletApp(
-            cardImgUri: cardImgUri,
-            title: title,
-            message: message,
-          ),),),
+        FittedBox(fit: BoxFit.scaleDown, child: Row(children: 
+          [
+
+            Center(
+              child: WalletApp(
+                  cardImgUri: cardImgUri,
+                  title: title,
+                  message: message,
+                ),
+            ),
+            Padding(padding: EdgeInsets.only(left: 5), child: Center(child: 
+              SocialMediaShareApp(cardImgUri: cardImgUri, message: message),),)
+          ],),
+        ) 
+      ),
     );
   }
 }
