@@ -2,14 +2,70 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:global_citizen_game/navbar/view/nav_bar.dart';
+import 'package:global_citizen_game/splash/cubit/splash_cubit.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SplashPage2Animation();
+    return BlocProvider(
+      create: (_) => SplashCubit(),
+      child: SplashView(),
+    );
+  }
+}
+
+class SplashView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<SplashCubit, SplashPageState>(
+          builder: (context, pageState) {
+        switch (pageState) {
+          case SplashPageState.first:
+            return SplashPage1Animation();
+          case SplashPageState.second:
+            return SplashPage2Animation();
+          case SplashPageState.last:
+            return const BottomNavBar().animate().fadeIn(
+                  curve: Curves.easeOut,
+                  duration: 1000.ms,
+                );
+        }
+      }),
+    );
+  }
+}
+
+class SplashPage1Animation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color.fromRGBO(119, 152, 170, 1.0),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/images/splash1_bg.jpg',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Splash1FirstTextAnimation(
+                text: 'A mindful path with conscious steps'),
+            Splash1SecondTextAnimation(
+              text: 'Sustainfulness',
+              pageState: SplashPageState.second,
+            ),
+          ],
+        ));
   }
 }
 
@@ -70,7 +126,9 @@ class SplashPage2Animation extends StatelessWidget {
               FirstTextAnimation(
                   text: 'Feel the rhythm of the rustling leaves'),
               SecondTextAnimation(
-                  text: 'In the gentle whisper of the evening breeze'),
+                text: 'In the gentle whisper of the evening breeze',
+                pageState: SplashPageState.second,
+              ),
             ],
           ).animate().fadeOut(duration: 500.ms, delay: 5000.ms).swap(
               builder: (_, __) {
@@ -78,7 +136,9 @@ class SplashPage2Animation extends StatelessWidget {
             return const Stack(children: <Widget>[
               FirstTextAnimation(text: 'The silent murmur of a flowing stream'),
               SecondTextAnimation(
-                  text: 'Captures the essence of a mindful dream')
+                text: 'Captures the essence of a mindful dream',
+                pageState: SplashPageState.last,
+              )
             ]);
           }),
         ],
@@ -86,6 +146,8 @@ class SplashPage2Animation extends StatelessWidget {
     );
   }
 }
+
+// Splash Page 2 Animated elements ----------------------------------
 
 class Moon extends StatelessWidget {
   const Moon({super.key});
@@ -97,7 +159,7 @@ class Moon extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: Transform.translate(
-          offset: const Offset(0, 0),
+          offset: const Offset(0, 50),
           child: const Image(
             image: AssetImage(
               'assets/images/splash2_moon.png',
@@ -454,10 +516,12 @@ class FirstText extends StatelessWidget {
 class SecondTextAnimation extends StatelessWidget {
   const SecondTextAnimation({
     required this.text,
+    required this.pageState,
     super.key,
   });
 
   final String text;
+  final SplashPageState pageState;
 
   @override
   Widget build(BuildContext context) {
@@ -482,11 +546,17 @@ class SecondTextAnimation extends StatelessWidget {
         )
         .then()
         .swap(
-          duration: 300.ms,
-          builder: (_, __) => SecondText(text: text)
-              .animate()
-              .fadeIn(curve: Curves.easeOut, duration: 400.ms),
-        );
+            duration: 300.ms,
+            builder: (_, __) =>
+                SecondText(text: text).animate(onComplete: (controller) {
+                  if (pageState == SplashPageState.last) {
+                    Future.delayed(1000.ms, () {
+                      context.read<SplashCubit>().setPageState(pageState);
+                    });
+                  } else {
+                    context.read<SplashCubit>().setPageState(pageState);
+                  }
+                }).fadeIn(curve: Curves.easeOut, duration: 400.ms));
   }
 }
 
@@ -511,6 +581,143 @@ class SecondText extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w100,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Splash Page 1 Animated elements ----------------------------------
+
+class Splash1FirstTextAnimation extends StatelessWidget {
+  const Splash1FirstTextAnimation({
+    required this.text,
+    super.key,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Splash1FirstText(text: text)
+        .animate(delay: 400.ms)
+        .blur()
+        .fadeIn(
+          curve: Curves.easeOut,
+          duration: const Duration(
+            milliseconds: SPLASH_PAGE2_BASE_DURATION + 1000,
+          ),
+        )
+        .slide(
+          begin: const Offset(-1, 0),
+          duration: const Duration(
+            milliseconds: SPLASH_PAGE2_BASE_DURATION + 500,
+          ),
+          curve: Curves.easeOut,
+          delay: const Duration(
+            milliseconds: 300,
+          ),
+        )
+        .then()
+        .swap(
+          duration: 300.ms,
+          builder: (_, __) => Splash1FirstText(text: text)
+              .animate()
+              .fadeIn(curve: Curves.easeOut, duration: 400.ms),
+        );
+  }
+}
+
+class Splash1FirstText extends StatelessWidget {
+  const Splash1FirstText({
+    required this.text,
+    super.key,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      child: Align(
+        alignment: Alignment.center,
+        child: Transform.translate(
+          offset: const Offset(50, 0),
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w100,
+              color: Colors.white,
+              shadows: [
+                Shadow(color: Colors.grey, blurRadius: 8, offset: Offset(2, 2))
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Splash1SecondTextAnimation extends StatelessWidget {
+  const Splash1SecondTextAnimation({
+    required this.text,
+    required this.pageState,
+    super.key,
+  });
+
+  final String text;
+  final SplashPageState pageState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Splash1SecondText(text: text)
+        .animate(delay: 1500.ms)
+        .blur()
+        .fadeIn(
+          curve: Curves.easeOut,
+          duration: const Duration(
+            milliseconds: SPLASH_PAGE2_BASE_DURATION + 800,
+          ),
+        )
+        .then()
+        .swap(
+            duration: 300.ms,
+            builder: (_, __) =>
+                Splash1SecondText(text: text).animate(onComplete: (controller) {
+                  Future.delayed(1000.ms, () {
+                    context.read<SplashCubit>().setPageState(pageState);
+                  });
+                }).fadeIn(curve: Curves.easeOut, duration: 500.ms));
+  }
+}
+
+class Splash1SecondText extends StatelessWidget {
+  const Splash1SecondText({
+    required this.text,
+    super.key,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 300.0,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Transform.translate(
+          offset: const Offset(50, -60),
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
