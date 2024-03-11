@@ -21,27 +21,67 @@ class SplashPage2Animation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              'assets/images/splash2_bg.jpg',
+      backgroundColor: Color.fromRGBO(119, 152, 170, 1.0),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/splash2_bg.jpg',
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: const Stack(
-          children: <Widget>[
-            Moon(),
-            Cloud(),
-            BlurRiverAnimation(),
-            RiverAnimation(),
-            Bamboo(),
-            Bamboo2(),
-            FirstTextAnimation(),
-            SecondTextAnimation(),
-          ],
-        ),
+          ).animate().fadeIn(duration: 1500.ms),
+          Moon(),
+          Cloud(),
+
+          // Splash Page 2, first of background elements
+          Stack(children: <Widget>[
+            FogAnimation(
+              assetPath: 'assets/images/splash2_fog_left.svg',
+              translateOffset: Offset(-10, 120),
+              slideOffsetX: -0.5,
+            ),
+            FogAnimation(
+              assetPath: 'assets/images/splash2_fog_right.svg',
+              translateOffset: Offset(50, 330),
+              slideOffsetX: 0.5,
+            ),
+          ])
+              .animate()
+              .fadeOut(
+                  curve: Curves.easeInOut, duration: 1000.ms, delay: 5000.ms)
+              .swap(builder: (_, __) {
+            // Splash Page 2, second set of background elements
+            return Stack(children: <Widget>[
+              BlurRiverAnimation(),
+              RiverAnimation(),
+            ]);
+          }),
+
+          Bamboo(),
+          Bamboo2(),
+
+          // Splash Page 2, first set of text
+          const Stack(
+            children: <Widget>[
+              FirstTextAnimation(
+                  text: 'Feel the rhythm of the rustling leaves'),
+              SecondTextAnimation(
+                  text: 'In the gentle whisper of the evening breeze'),
+            ],
+          ).animate().fadeOut(duration: 500.ms, delay: 5000.ms).swap(
+              builder: (_, __) {
+            // Splash Page 2, second set of background elements
+            return const Stack(children: <Widget>[
+              FirstTextAnimation(text: 'The silent murmur of a flowing stream'),
+              SecondTextAnimation(
+                  text: 'Captures the essence of a mindful dream')
+            ]);
+          }),
+        ],
       ),
     );
   }
@@ -218,7 +258,16 @@ class BlurRiverAnimation extends StatelessWidget {
         sigmaX: 5,
       ), //SigmaX and Y are just for X and Y directions
       child: River(),
-    ).animate().fadeOut(
+    )
+        .animate()
+        .fadeIn(
+          curve: Curves.easeOut,
+          duration: const Duration(
+            milliseconds: SPLASH_PAGE2_BASE_DURATION + 1500,
+          ),
+        )
+        .then()
+        .fadeOut(
           curve: Curves.easeOut,
           duration: const Duration(
             milliseconds: SPLASH_PAGE2_BASE_DURATION + 3000,
@@ -267,14 +316,83 @@ class River extends StatelessWidget {
   }
 }
 
-class FirstTextAnimation extends StatelessWidget {
-  const FirstTextAnimation({
+class FogAnimation extends StatelessWidget {
+  const FogAnimation({
+    required this.translateOffset,
+    required this.slideOffsetX,
+    required this.assetPath,
     super.key,
   });
 
+  final Offset translateOffset;
+  final double slideOffsetX;
+  final String assetPath;
+
   @override
   Widget build(BuildContext context) {
-    return FirstText()
+    return Fog(translateOffset: translateOffset, assetPath: assetPath)
+        .animate()
+        .slideX(
+            begin: slideOffsetX,
+            duration: const Duration(
+              milliseconds: SPLASH_PAGE2_BASE_DURATION + 2000,
+            ),
+            curve: Curves.easeOut)
+        .fadeIn(
+          curve: Curves.easeOut,
+          duration: const Duration(
+            milliseconds: SPLASH_PAGE2_BASE_DURATION + 600,
+          ),
+        );
+  }
+}
+
+class Fog extends StatelessWidget {
+  const Fog({
+    required this.translateOffset,
+    required this.assetPath,
+    super.key,
+  });
+
+  final Offset translateOffset;
+  final String assetPath;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: null,
+      child: Align(
+        alignment: Alignment.center,
+        child: Transform.translate(
+          offset: translateOffset,
+          child: ImageFiltered(
+            imageFilter: ImageFilter.blur(
+              sigmaY: 9,
+              sigmaX: 9,
+            ),
+            child: SvgPicture.asset(
+              assetPath,
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FirstTextAnimation extends StatelessWidget {
+  const FirstTextAnimation({
+    required this.text,
+    super.key,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return FirstText(text: text)
         .animate(delay: 400.ms)
         .blur()
         .fadeIn(
@@ -296,7 +414,7 @@ class FirstTextAnimation extends StatelessWidget {
         .then()
         .swap(
           duration: 300.ms,
-          builder: (_, __) => FirstText()
+          builder: (_, __) => FirstText(text: text)
               .animate()
               .fadeIn(curve: Curves.easeOut, duration: 400.ms),
         );
@@ -305,8 +423,11 @@ class FirstTextAnimation extends StatelessWidget {
 
 class FirstText extends StatelessWidget {
   const FirstText({
+    required this.text,
     super.key,
   });
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -315,10 +436,10 @@ class FirstText extends StatelessWidget {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Transform.translate(
-          offset: const Offset(15, -150.0),
-          child: const Text(
-            'The silent murmur of a flowing stream',
-            style: TextStyle(
+          offset: const Offset(15, -150),
+          child: Text(
+            text,
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w100,
               color: Colors.white,
@@ -332,12 +453,15 @@ class FirstText extends StatelessWidget {
 
 class SecondTextAnimation extends StatelessWidget {
   const SecondTextAnimation({
+    required this.text,
     super.key,
   });
 
+  final String text;
+
   @override
   Widget build(BuildContext context) {
-    return SecondText()
+    return SecondText(text: text)
         .animate(delay: 2000.ms)
         .blur()
         .fadeIn(
@@ -359,7 +483,7 @@ class SecondTextAnimation extends StatelessWidget {
         .then()
         .swap(
           duration: 300.ms,
-          builder: (_, __) => SecondText()
+          builder: (_, __) => SecondText(text: text)
               .animate()
               .fadeIn(curve: Curves.easeOut, duration: 400.ms),
         );
@@ -368,8 +492,11 @@ class SecondTextAnimation extends StatelessWidget {
 
 class SecondText extends StatelessWidget {
   const SecondText({
+    required this.text,
     super.key,
   });
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -379,9 +506,9 @@ class SecondText extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Transform.translate(
           offset: const Offset(150, -60),
-          child: const Text(
-            'Captures the essence of a mindful dream',
-            style: TextStyle(
+          child: Text(
+            text,
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w100,
               color: Colors.white,
