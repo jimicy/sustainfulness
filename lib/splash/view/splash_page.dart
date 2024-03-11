@@ -13,6 +13,7 @@ class SplashPage extends StatelessWidget {
   }
 }
 
+const int SPLASH_PAGE2_BASE_DURATION = 300;
 class SplashPage2Animation extends StatelessWidget {
   const SplashPage2Animation({super.key});
 
@@ -61,19 +62,17 @@ class Moon extends StatelessWidget {
           )
               .animate()
               .fadeIn(
-                delay: const Duration(
-                  milliseconds: 200,
+                curve: Curves.easeOut,
+                duration: const Duration(
+                  milliseconds: SPLASH_PAGE2_BASE_DURATION + 1500,
                 ),
               )
               .slide(
                 begin: const Offset(1, 0),
                 duration: const Duration(
-                  milliseconds: 400,
+                  milliseconds: SPLASH_PAGE2_BASE_DURATION + 1000,
                 ),
                 curve: Curves.easeOut,
-                delay: const Duration(
-                  milliseconds: 100,
-                ),
               ),
         ).animate(
           onPlay: (controller) {
@@ -107,14 +106,15 @@ class Cloud extends StatelessWidget {
           )
               .animate()
               .fadeIn(
-                delay: const Duration(
-                  milliseconds: 200,
+                curve: Curves.easeOut,
+                duration: const Duration(
+                  milliseconds: SPLASH_PAGE2_BASE_DURATION + 1500,
                 ),
               )
               .slide(
                 begin: const Offset(1, 0),
                 duration: const Duration(
-                  milliseconds: 400,
+                  milliseconds: SPLASH_PAGE2_BASE_DURATION + 1000,
                 ),
                 curve: Curves.easeOut,
                 delay: const Duration(
@@ -147,19 +147,17 @@ class Bamboo extends StatelessWidget {
       )
           .animate()
           .fadeIn(
-            delay: const Duration(
-              milliseconds: 300,
+            curve: Curves.easeOut,
+            duration: const Duration(
+              milliseconds: SPLASH_PAGE2_BASE_DURATION + 1500,
             ),
           )
           .slide(
             begin: const Offset(-1, 0),
             duration: const Duration(
-              milliseconds: 400,
+              milliseconds: SPLASH_PAGE2_BASE_DURATION + 1000,
             ),
             curve: Curves.easeOut,
-            delay: const Duration(
-              milliseconds: 400,
-            ),
           ),
     );
   }
@@ -185,14 +183,15 @@ class Bamboo2 extends StatelessWidget {
       )
           .animate()
           .fadeIn(
-            delay: const Duration(
-              milliseconds: 300,
+            curve: Curves.easeOut,
+            duration: const Duration(
+              milliseconds: SPLASH_PAGE2_BASE_DURATION + 1500,
             ),
           )
           .slide(
             begin: const Offset(-0.5, 0),
             duration: const Duration(
-              milliseconds: 400,
+              milliseconds: SPLASH_PAGE2_BASE_DURATION + 1000,
             ),
             curve: Curves.easeOut,
             delay: const Duration(
@@ -225,7 +224,7 @@ class BlurRiver extends StatelessWidget {
           ).animate().fadeOut(
                 curve: Curves.easeOut,
                 duration: const Duration(
-                  milliseconds: 3000,
+                  milliseconds: SPLASH_PAGE2_BASE_DURATION + 3000,
                 ),
               ),
         ),
@@ -253,7 +252,7 @@ class River extends StatelessWidget {
           ).animate().fadeIn(
                 curve: Curves.easeOut,
                 duration: const Duration(
-                  milliseconds: 4000,
+                  milliseconds: SPLASH_PAGE2_BASE_DURATION + 4000,
                 ),
               ),
         ),
