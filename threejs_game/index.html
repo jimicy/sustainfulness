@@ -1,0 +1,46 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,700italic' rel='stylesheet'
+    type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/demo.css" />
+  <link rel="stylesheet" type="text/css" href="css/game.css" />
+  <!-- <script type="text/javascript" src="js/TweenMax.min.js"></script> -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r99/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.139.2/examples/js/loaders/GLTFLoader.js"></script>
+  <script type="text/javascript" src="js/game.js" />
+  </script>
+  <!--[if IE]>
+		  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+  <div class="game-holder" id="gameHolder">
+    <div class="header">
+      <div class="score" id="score">
+        <div class="score__content" id="energy">
+          <div class="score__label">energy</div>
+          <div class="score__value score__value--energy" id="energyValue">
+            <div class="energy-bar" id="energyBar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="world" id="world"></div>
+    <div class="message message--replay" id="replayMessage">
+      You have harvested enough energy!
+      <br>
+      <div class="button" onclick="finishGame()">Reveal Your Element</div>
+    </div>
+
+    <div class="message message--instructions" id="instructions">Fill up your energy bar
+    </div>
+  </div>
+</body>
+
+</html>

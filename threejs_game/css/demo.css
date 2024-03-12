@@ -1,0 +1,116 @@
+@import url(https://fonts.googleapis.com/css?family=Outfit:300,400,600,800);
+
+html,
+body {
+  overflow: hidden;
+  /* Disable webview overscrolling */
+  overscroll-behavior: none;
+  user-select: none;
+}
+
+body {
+  position: relative;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300 !important;
+  margin: 0;
+  color: #444;
+  background: #f6f6f6;
+}
+
+a {
+  text-decoration: none;
+  color: #d1b790;
+  outline: none;
+}
+
+a:hover,
+a:focus {
+  color: #bba077;
+  outline: none;
+}
+
+
+/* Top Navigation Style */
+
+.meta {
+  top: 54%;
+  font-size: 0.75em;
+  line-height: 1;
+  position: absolute;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  white-space: nowrap;
+  /* border-top: 1px solid #d1b790; */
+}
+
+.meta a {
+  display: block;
+  padding: 1em 1.35em;
+  /* border: 1px solid #d1b790; */
+  border-top: 0;
+}
+
+.meta a:not(:last-child) {
+  border-right: 0;
+}
+
+@media screen and (max-width:40em) {
+  .meta {
+    right: 1em;
+  }
+}
+
+@media screen and (max-width:80em) {
+  .partisan {
+    font-size: 76%;
+  }
+
+  .partisan__title::before {
+    font-size: 0.25em;
+  }
+}
+
+@media screen and (max-width:60em) {
+  .game-holder .message--instructions {
+    bottom: 5.5em;
+  }
+}
+
+.button {
+  opacity: 85%;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 25px auto;
+  padding: 15px;
+
+  background-color: #4E6D7F;
+  color: white;
+  border: none;
+  text-align: center;
+  border-radius: 200px;
+  max-width: 300px;
+  user-select: auto;
+
+  bottom: 50%;
+}
+
+.button:hover {
+  background-color: #84a4b7;
+}
+
+.button:active {
+  box-shadow: 0 0 2px darkslategray;
+  transform: translateY(2px);
+}
