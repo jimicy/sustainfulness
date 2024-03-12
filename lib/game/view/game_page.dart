@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_citizen_game/app/revealed_card/view/revealed_card_page.dart';
 import 'package:global_citizen_game/navbar/view/nav_bar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -33,7 +34,7 @@ class _GameWebViewState extends State<GameWebView> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const BottomNavBar();
+                return const RevealCardPage();
               },
             ),
           );
