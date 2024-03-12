@@ -21,19 +21,64 @@ const bgAssetPaths = {
 
 const cardUris = {
   EnergyElement.water: [
-    'https://storage.googleapis.com/global-citizen-assets/card_water1.png'
+    'https://storage.googleapis.com/global-citizen-assets/card_water1.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water2.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water3.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water4.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water5.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water6.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water7.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water8.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water9.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_water10.png',
   ],
   EnergyElement.fire: [
-    'https://storage.googleapis.com/global-citizen-assets/card_fire1.png'
+    'https://storage.googleapis.com/global-citizen-assets/card_fire1.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire2.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire3.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire4.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire5.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire6.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire7.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire8.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire9.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_fire10.png',    
   ],
   EnergyElement.wood: [
-    'https://storage.googleapis.com/global-citizen-assets/card_wood1.png'
+    'https://storage.googleapis.com/global-citizen-assets/card_wood1.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood2.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood3.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood4.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood5.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood6.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood7.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood8.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood9.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_wood10.png',
   ],
   EnergyElement.metal: [
-    'https://storage.googleapis.com/global-citizen-assets/card_metal1.png'
+    'https://storage.googleapis.com/global-citizen-assets/card_metal1.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal2.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal3.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal4.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal5.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal6.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal7.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal8.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal9.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_metal10.png',
   ],
   EnergyElement.earth: [
-    'https://storage.googleapis.com/global-citizen-assets/card_earth1.png'
+    'https://storage.googleapis.com/global-citizen-assets/card_earth1.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth2.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth3.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth4.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth5.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth6.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth7.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth8.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth9.png',
+    'https://storage.googleapis.com/global-citizen-assets/card_earth10.png',
   ],
 };
 
