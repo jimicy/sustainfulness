@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:global_citizen_game/daily_card/view/daily_card_page.dart';
 import 'package:global_citizen_game/game/view/game_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -47,10 +48,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    DailyCardPage(),
     Text(
       'Index 1: Business',
       style: optionStyle,
