@@ -18,6 +18,7 @@ class _GameWebViewState extends State<GameWebView> {
   void initState() {
     super.initState();
     controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(Colors.transparent)
       ..loadRequest(
         Uri.parse('https://jimicy.github.io/sustainfulness/'),
