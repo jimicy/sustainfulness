@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:global_citizen_game/game/view/game_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -8,33 +10,34 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _IconButtonText extends StatelessWidget {
-  final IconData icon;
+  final String iconAssetPath;
   final String text;
   final bool isSelected;
 
   const _IconButtonText(
       {super.key,
-      required this.icon,
+      required this.iconAssetPath,
       required this.text,
       required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Icon(
-          icon,
-          color: isSelected ? Colors.white : Colors.grey,
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey,
-          ),
-        ),
-      ],
-    );
+    return Opacity(
+        opacity: isSelected ? 1.0 : 0.5,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SvgPicture.asset(
+              iconAssetPath,
+              height: 30,
+              fit: BoxFit.fitHeight,
+            ),
+            Text(
+              text,
+              style: TextStyle(color: Colors.white),
+            ),
+          ],
+        ));
   }
 }
 
@@ -67,6 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(119, 152, 170, 1.0),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -79,8 +83,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
             borderRadius: BorderRadius.circular(50),
             child: FloatingActionButton(
               backgroundColor: const Color.fromRGBO(231, 212, 165, 1.0),
-              child: const Icon(color: Colors.white, Icons.car_repair),
-              onPressed: () {},
+              child: SvgPicture.asset(
+                'assets/images/nav_icons/net.svg',
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const GameWebView();
+                    },
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -98,7 +113,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             IconButton(
               highlightColor: Colors.white.withOpacity(0.2),
               icon: _IconButtonText(
-                  icon: Icons.card_giftcard,
+                  iconAssetPath: 'assets/images/nav_icons/daily_card.svg',
                   text: 'Daily card',
                   isSelected: _selectedIndex == 0),
               onPressed: () {
@@ -108,7 +123,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             IconButton(
               highlightColor: Colors.white.withOpacity(0.2),
               icon: _IconButtonText(
-                  icon: Icons.collections,
+                  iconAssetPath: 'assets/images/nav_icons/collections.svg',
                   text: 'Collections',
                   isSelected: _selectedIndex == 1),
               onPressed: () {
@@ -118,7 +133,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             IconButton(
               highlightColor: Colors.white.withOpacity(0.2),
               icon: _IconButtonText(
-                  icon: Icons.radar_outlined,
+                  iconAssetPath: 'assets/images/nav_icons/energy_map.svg',
                   text: 'Energy Map',
                   isSelected: _selectedIndex == 2),
               onPressed: () {
