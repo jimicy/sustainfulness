@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:global_citizen_game/game/view/game_page.dart';
 import 'package:global_citizen_game/navbar/view/nav_bar.dart';
 import 'package:global_citizen_game/splash/cubit/splash_cubit.dart';
 
@@ -31,10 +32,7 @@ class SplashView extends StatelessWidget {
           case SplashPageState.second:
             return SplashPage2Animation();
           case SplashPageState.last:
-            return const BottomNavBar().animate().fadeIn(
-                  curve: Curves.easeOut,
-                  duration: 1000.ms,
-                );
+            return const GameWebView();
         }
       }),
     );
@@ -429,8 +427,8 @@ class Fog extends StatelessWidget {
           offset: translateOffset,
           child: ImageFiltered(
             imageFilter: ImageFilter.blur(
-              sigmaY: 9,
-              sigmaX: 9,
+              sigmaY: 4,
+              sigmaX: 4,
             ),
             child: SvgPicture.asset(
               assetPath,
