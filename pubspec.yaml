@@ -23,6 +23,7 @@ dependencies:
   flutter_animate: ^4.5.0
   webview_flutter: ^4.7.0
   flutter_tilt: ^2.4.0
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   bloc_test: ^9.1.2

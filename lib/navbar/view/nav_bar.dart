@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:global_citizen_game/app/gallery/view/gallery_page.dart';
 import 'package:global_citizen_game/daily_card/view/daily_card_page.dart';
+import 'package:global_citizen_game/energy_map/view/energy_map_page.dart';
 import 'package:global_citizen_game/game/view/game_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -48,13 +49,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     DailyCardPage(),
     GalleryPage(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    EnergyPage(),
   ];
 
   void _onItemTapped(int index) {

@@ -20,8 +20,7 @@ class _GameWebViewState extends State<GameWebView> {
     controller = WebViewController()
       ..setBackgroundColor(Colors.transparent)
       ..loadRequest(
-        Uri.parse(
-            'https://jimicy.github.io/sustainfulness/'),
+        Uri.parse('https://jimicy.github.io/sustainfulness/'),
       )
       ..setNavigationDelegate(NavigationDelegate(
           onPageFinished: (_) => setState(() {
