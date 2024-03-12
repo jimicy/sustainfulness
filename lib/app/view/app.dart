@@ -22,6 +22,7 @@ class App extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: 'Outfit',
             appBarTheme:
@@ -36,15 +37,6 @@ class App extends StatelessWidget {
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           home: SplashPage(),
-          // home: const BottomNavBar(),
-          // home: const CounterPage(),
-          // home: RevealCardPage(),
-          // home: const SharePage(
-          //   cardImgUri:
-          //       'https://storage.googleapis.com/global-citizen-assets/card_water1.png',
-          //   title: 'Mindfulness Card',
-          //   message: 'Praise the sun!',
-          // )
         ));
   }
 }
