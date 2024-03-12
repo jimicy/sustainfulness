@@ -42,7 +42,7 @@ const cardUris = {
     'https://storage.googleapis.com/global-citizen-assets/card_fire7.png',
     'https://storage.googleapis.com/global-citizen-assets/card_fire8.png',
     'https://storage.googleapis.com/global-citizen-assets/card_fire9.png',
-    'https://storage.googleapis.com/global-citizen-assets/card_fire10.png',    
+    'https://storage.googleapis.com/global-citizen-assets/card_fire10.png',
   ],
   EnergyElement.wood: [
     'https://storage.googleapis.com/global-citizen-assets/card_wood1.png',
