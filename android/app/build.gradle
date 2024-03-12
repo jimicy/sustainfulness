@@ -83,17 +83,17 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Global Citizen Game"]
+            manifestPlaceholders = [appName: "Sustainfulness"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Global Citizen Game"]
+            manifestPlaceholders = [appName: "[STG] Sustainfulness"]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Global Citizen Game"]
+            manifestPlaceholders = [appName: "[DEV] Sustainfulness"]
         }
     }
 
