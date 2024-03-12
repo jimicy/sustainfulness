@@ -30,24 +30,23 @@ class DailyCardPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                child: Transform.translate(
-                  offset: const Offset(20, 0),
-                  child: SocialMediaShareApp(
-                    cardImgUri: context.read<DailyElementCubit>().state.cardUri,
-                    message:
-                        'This is my daily sustainfulness card. Join me in this challenge!',
-                  ),
-                ),
-              ),
               SizedBox(
                 height: 40,
-                child: WalletApp(
+                child: Transform.translate(
+                  offset: Offset(20, 0),
+                  child: WalletApp(
                   cardImgUri: context.read<DailyElementCubit>().state.cardUri,
                   title: 'Daily sustainfulness card',
                   message: 'Join me in this challenge!',
+                  ),
                 ),
               ),
+              SocialMediaShareApp(
+                cardImgUri: context.read<DailyElementCubit>().state.cardUri,
+                message:
+                    'This is my daily sustainfulness card. Join me in this challenge!',
+              ),
+              SizedBox(width: 20)
             ],
           ),
           const SizedBox(
@@ -56,7 +55,7 @@ class DailyCardPage extends StatelessWidget {
           AnimationCard(
             child: Image(
               filterQuality: FilterQuality.high,
-              height: 500,
+              height: 450,
               image:
                   NetworkImage(context.read<DailyElementCubit>().state.cardUri),
             ),
