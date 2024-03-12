@@ -31,6 +31,15 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^0.3.0
   very_good_analysis: ^5.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#4e6d7f"
+  adaptive_icon_foreground: "assets/icon/ic_launcher_adaptive_foreground.png"
 
 flutter:
   uses-material-design: true
@@ -39,6 +48,7 @@ flutter:
   assets:
     - packages/flutter_google_wallet/assets/svg/button/enUS_add_to_google_wallet_wallet-button.svg
     - lib/assets/svg/button/
+    - assets/icon/
     - assets/images/
     - assets/images/nav_icons/
     - assets/images/elements/bg/
