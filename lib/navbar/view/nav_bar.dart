@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:global_citizen_game/app/gallery/view/gallery_page.dart';
 import 'package:global_citizen_game/daily_card/view/daily_card_page.dart';
 import 'package:global_citizen_game/game/view/game_page.dart';
 
@@ -49,10 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     DailyCardPage(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    GalleryPage(),
     Text(
       'Index 2: School',
       style: optionStyle,

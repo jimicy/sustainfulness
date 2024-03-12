@@ -35,9 +35,9 @@ class DailyCardPage extends StatelessWidget {
                 child: Transform.translate(
                   offset: Offset(20, 0),
                   child: WalletApp(
-                  cardImgUri: context.read<DailyElementCubit>().state.cardUri,
-                  title: 'Daily sustainfulness card',
-                  message: 'Join me in this challenge!',
+                    cardImgUri: context.read<DailyElementCubit>().state.cardUri,
+                    title: 'Daily sustainfulness card',
+                    message: 'Join me in this challenge!',
                   ),
                 ),
               ),
