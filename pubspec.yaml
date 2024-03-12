@@ -35,9 +35,12 @@ flutter:
   generate: true
 
   assets:
-    - packages/flutter_google_wallet/assets/svg/button/frFR_add_to_google_wallet_wallet-button.svg
     - packages/flutter_google_wallet/assets/svg/button/enUS_add_to_google_wallet_wallet-button.svg
+    - lib/assets/svg/button/
     - assets/images/
+    - assets/images/nav_icons/
+    - assets/images/elements/bg/
+    - assets/images/elements/icons/
 
   fonts:
     - family: Outfit
