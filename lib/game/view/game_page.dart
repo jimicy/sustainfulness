@@ -21,7 +21,7 @@ class _GameWebViewState extends State<GameWebView> {
       ..setBackgroundColor(Colors.transparent)
       ..loadRequest(
         Uri.parse(
-            'https://568f7e56-4141-44a9-bcc4-0c7b7d6a88c4-00-ab9ubil012q4.spock.replit.dev/'),
+            'https://jimicy.github.io/sustainfulness/'),
       )
       ..setNavigationDelegate(NavigationDelegate(
           onPageFinished: (_) => setState(() {
